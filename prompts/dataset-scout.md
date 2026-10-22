@@ -71,9 +71,11 @@ Search for datasets relevant to the language/country. Good sources:
 **Rules:**
 - Dataset must be **specific to the country/language** (not generic world data)
 - Must have **open license** (MIT, CC0, CC-BY, Public Domain)
-- Must have **5+ records** (not trivially small)
+- Must have **20+ records** — datasets with fewer than 20 records feel too thin. If a topic naturally has fewer items (e.g. "planets"), combine with related data to enrich it, or skip it and find a richer topic
 - Must **not duplicate** an existing dataset (check the index!)
-- Text/labels should be in the **target language** where possible
+- **ALL text must be in the target language** — not just the `name` field, but also descriptions, labels, and categorical values. If the source data is in English, translate it. Do NOT leave `description_en` fields in English — rename to `description` and translate the content
+- **Wikidata alone is usually too thin** — it gives you names but not rich data. Always try to find a primary source first (GitHub repos, government data, Wikipedia tables). Only use Wikidata as a supplement, not the sole source
+- When a topic has hundreds of items (e.g. Indian ragas, laws, recipes), include at least 50+ records, not just 15-20. A dataset should feel comprehensive, not like a teaser
 
 ## Step 3: Prepare Each Dataset
 
@@ -94,6 +96,9 @@ Rules:
 - Remove junk columns: thumbnail, image URLs, internal IDs
 - Keep it flat — flatten nested objects if needed
 - Max ~10,000 records per file
+- **All values in the target language** — column labels AND data values. Don't mix languages in the same column. If source is English, translate values to {{LANG}}
+- Column keys can be English/ASCII (e.g. `name`, `region`) but `label` in columns should be in target language
+- Aim for **3-8 meaningful columns** — not just name + source_url. Include attributes that make the dataset useful (numbers, categories, dates, locations)
 
 ### meta.json — metadata
 
@@ -179,9 +184,11 @@ Before adding each dataset, verify:
 - [ ] Slug starts with `{{LANG}}-`
 - [ ] Slug does NOT exist in current index
 - [ ] Source has open license
-- [ ] Records >= 5
+- [ ] **Records >= 20** (topics with hundreds of items should have 50+)
 - [ ] Data is specific to the target country/language
-- [ ] Text is in the target language where appropriate
+- [ ] **ALL text in target language** — names, descriptions, categories, labels (not English)
+- [ ] **3-8 meaningful columns** with real data (not just name + URL)
+- [ ] **Not just Wikidata stubs** — data should be rich, not just entity names
 
 ## Notes
 
