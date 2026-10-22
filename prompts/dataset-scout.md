@@ -78,7 +78,7 @@ Read the index to understand:
 
 **Rules:**
 - Dataset must be **specific to the country/language** (not generic world data)
-- Must have **open license** (MIT, CC0, CC-BY, Public Domain, or government public data)
+- **License:** any open/public license is fine (MIT, CC0, CC-BY, CC-BY-SA, Public Domain, government open data, "free to use"). Only reject explicitly "all rights reserved" or commercial-only. Wikipedia data is always OK. Government published data is always OK. If no license is stated but the data is clearly public/factual, use it and note "public factual data" as the license
 - Must have **5+ records**
 - Must **not duplicate** an existing dataset (check the index!)
 - **Find sources already in the target language** — Wikipedia in {{LANG}}, local government portals, repos by local developers
@@ -86,6 +86,20 @@ Read the index to understand:
 - **Only translate meta.json title/description** — 2 fields only
 - Column keys in English/ASCII (`name`, `region`, `population`)
 - **Move fast** — clone, extract, add, next. Don't over-polish
+
+## ⚠️ CRITICAL: NO HALLUCINATION
+
+**NEVER invent, fabricate, or guess data values.** Every single row in data.json must come from a real, verifiable source.
+
+- ✅ Copy data from Wikipedia table, GitHub repo, government CSV
+- ✅ Parse structured data from a real webpage or file
+- ❌ **NEVER** make up rows because "it seems right" or "it's common knowledge"
+- ❌ **NEVER** generate fake data to fill a dataset
+- ❌ **NEVER** guess numbers, dates, names, or any values
+
+**If you can't find real source data for a topic, SKIP IT and move to the next topic.** An empty category is better than a category with fabricated data.
+
+**Every dataset must have `source.repo_url` or `source.url` pointing to the actual source** where someone can verify the data. If you can't provide a verifiable source URL, don't create the dataset.
 
 ## Step 3: Prepare Each Dataset
 
