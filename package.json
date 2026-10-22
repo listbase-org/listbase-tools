@@ -1,0 +1,11 @@
+{
+  "name": "listbase-tools",
+  "version": "1.0.0",
+  "description": "CLI tools for managing ListBase CDN repos",
+  "bin": {
+    "add-dataset": "./add-dataset.js"
+  },
+  "dependencies": {
+    "exceljs": "^4.4.0"
+  }
+}
