@@ -68,14 +68,18 @@ Search for datasets relevant to the language/country. Good sources:
    - `martj42/international_results` — football match results
    - `mledoze/countries` — country metadata
 
+**Priority: QUANTITY over perfection.** Add as many datasets as possible per run. Don't spend tokens translating — find data that's already in the right language.
+
 **Rules:**
 - Dataset must be **specific to the country/language** (not generic world data)
 - Must have **open license** (MIT, CC0, CC-BY, Public Domain)
-- Must have **20+ records** — datasets with fewer than 20 records feel too thin. If a topic naturally has fewer items (e.g. "planets"), combine with related data to enrich it, or skip it and find a richer topic
+- Must have **5+ records**
 - Must **not duplicate** an existing dataset (check the index!)
-- **ALL text must be in the target language** — not just the `name` field, but also descriptions, labels, and categorical values. If the source data is in English, translate it. Do NOT leave `description_en` fields in English — rename to `description` and translate the content
-- **Wikidata alone is usually too thin** — it gives you names but not rich data. Always try to find a primary source first (GitHub repos, government data, Wikipedia tables). Only use Wikidata as a supplement, not the sole source
-- When a topic has hundreds of items (e.g. Indian ragas, laws, recipes), include at least 50+ records, not just 15-20. A dataset should feel comprehensive, not like a teaser
+- **Find sources already in the target language** — don't translate English data row by row. Search Wikipedia in that language, find GitHub repos by local developers, use government open data portals
+- **Data values stay as-is from source** — don't waste tokens translating row data. Names, places, terms keep their original language from the source
+- **Only translate meta.json title/description** — that's 2 fields, not hundreds of rows
+- Column keys are always English/ASCII (`name`, `region`, `population`)
+- **Move fast** — clone repo, extract data, create data.json + meta.json, run add-dataset.js, move to next. Don't over-polish one dataset
 
 ## Step 3: Prepare Each Dataset
 
@@ -96,9 +100,8 @@ Rules:
 - Remove junk columns: thumbnail, image URLs, internal IDs
 - Keep it flat — flatten nested objects if needed
 - Max ~10,000 records per file
-- **All values in the target language** — column labels AND data values. Don't mix languages in the same column. If source is English, translate values to {{LANG}}
-- Column keys can be English/ASCII (e.g. `name`, `region`) but `label` in columns should be in target language
-- Aim for **3-8 meaningful columns** — not just name + source_url. Include attributes that make the dataset useful (numbers, categories, dates, locations)
+- **Don't translate data values** — keep as-is from source
+- Column keys in English/ASCII (e.g. `name`, `region`)
 
 ### meta.json — metadata
 
@@ -174,26 +177,24 @@ node add-dataset.js --lang hi --input /tmp/hi-bharatiya-vyanjan --push
 # https://cdn.hi.listbase.org/food/hi-bharatiya-vyanjan_HI.xlsx
 ```
 
-## Quality Checklist
+## Quality Checklist (quick — don't overthink)
 
-Before adding each dataset, verify:
-
-- [ ] `data.json` is valid JSON array of objects
-- [ ] All rows have consistent keys
-- [ ] `meta.json` has slug, title, description, category, tags, source
-- [ ] Slug starts with `{{LANG}}-`
-- [ ] Slug does NOT exist in current index
-- [ ] Source has open license
-- [ ] **Records >= 20** (topics with hundreds of items should have 50+)
-- [ ] Data is specific to the target country/language
-- [ ] **ALL text in target language** — names, descriptions, categories, labels (not English)
-- [ ] **3-8 meaningful columns** with real data (not just name + URL)
-- [ ] **Not just Wikidata stubs** — data should be rich, not just entity names
+- [ ] Valid JSON array of objects, consistent keys
+- [ ] meta.json has slug, title, description, category, tags, source
+- [ ] Slug not already in index
+- [ ] Records >= 5, open license
+- [ ] Data is about the target country/language
+- [ ] Source data already in target language (not translated by you)
 
 ## Notes
 
-- **One dataset at a time** — run add-dataset.js once per dataset, not in batch
+- **Maximize datasets per run** — speed matters more than polish
+- **One add-dataset.js call per dataset** — run sequentially
 - **Check index before adding** — avoid duplicates
-- **Prefer quality over quantity** — 5 good datasets > 20 junk ones
-- **Always attribute sources** — fill in source.repo_url and source.license
-- **Use the target language** — titles, descriptions, and data values should be localized
+- **Don't translate row data** — find sources already in the right language
+- **Don't over-enrich** — take what the source gives you, don't synthesize extra columns
+- **Good sources for native-language data:**
+  - Wikipedia in {{LANG}} → parse tables from "List of..." articles
+  - GitHub repos by developers from that country (search in target language)
+  - Government open data portals (data.gov.{tld})
+  - One GitHub repo can yield many datasets (e.g. airports repo → filter by country)
