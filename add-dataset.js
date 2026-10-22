@@ -190,10 +190,12 @@ async function main() {
 
   if (doPush) {
     console.log(`\nPushing to ${ORG}/${REPO_NAME}...`);
+    execSync(`cd "${repoDir}" && git pull --rebase origin master`, { stdio: 'inherit' });
     execSync(`cd "${repoDir}" && git push`, { stdio: 'inherit' });
     console.log(`Done! Live at: https://cdn.${lang}.listbase.org/${category}/${slug}.json`);
   } else if (doPR) {
     console.log(`\nCreating PR...`);
+    execSync(`cd "${repoDir}" && git pull --rebase origin master`, { stdio: 'inherit' });
     execSync(`cd "${repoDir}" && git push -u origin ${branch}`, { stdio: 'inherit' });
     const prUrl = execSync(`cd "${repoDir}" && gh pr create --title "Add ${slug}" --body "New dataset: ${title}\n\n- ${rows.length} records\n- Category: ${category}\n- Source: ${source}" --auto --squash`, { encoding: 'utf-8' }).trim();
     console.log(`PR created: ${prUrl}`);
