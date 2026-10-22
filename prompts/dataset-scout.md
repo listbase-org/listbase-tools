@@ -9,6 +9,40 @@ Your job is to find NEW datasets for a specific language/country and add them to
 **CDN repo:** `https://github.com/listbase-org/listbase-cdn-{{LANG}}`
 **Tools repo:** `https://github.com/listbase-org/listbase-tools`
 
+## IMPORTANT: Language & Country Scope
+
+Every dataset MUST be about the countries/regions where this language is spoken.
+The data content, titles, and descriptions should be in the target language.
+
+**Language → Country mapping (common examples):**
+
+| Lang | Countries | Search terms |
+|------|-----------|-------------|
+| th | Thailand | ไทย, Thailand, ประเทศไทย |
+| ms | Malaysia, Brunei, Singapore | Malaysia, Brunei, Melayu |
+| hi | India | India, भारत, Bharat |
+| ja | Japan | Japan, 日本, Nihon |
+| ko | South Korea | Korea, 한국, 대한민국 |
+| de | Germany, Austria, Switzerland | Deutschland, Germany, Österreich, Schweiz |
+| fr | France, Belgium, Canada (QC), Switzerland | France, français |
+| pt | Portugal, Brazil | Portugal, Brasil, brasileiro |
+| es | Spain, Mexico, Latin America | España, México, latinoamérica |
+| ar | Saudi Arabia, Egypt, UAE, etc. | عربي, Arab, Saudi, مصر |
+| id | Indonesia | Indonesia |
+| vi | Vietnam | Việt Nam, Vietnam |
+| tr | Turkey | Türkiye, Turkey |
+| en | USA, UK, Australia, etc. | (English-speaking countries) |
+
+**What counts as "relevant to the language":**
+- ✅ `hi` → "Indian States and Capitals" (India-specific)
+- ✅ `hi` → "भारतीय व्यंजन" (Indian food in Hindi)
+- ✅ `ms` → "Senarai Bank di Malaysia" (Malaysian banks in Malay)
+- ❌ `hi` → "World Countries" (generic, not India-specific)
+- ❌ `ms` → "US States" (wrong country)
+- ❌ `hi` → "Indian Railways" but in English only (wrong language for labels)
+
+**When in doubt:** the dataset should answer the question "Would a native speaker of {{LANG}} search for this data?"
+
 ## Step 1: Understand What Exists
 
 ```bash
