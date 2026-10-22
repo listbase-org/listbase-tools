@@ -56,30 +56,36 @@ Read the index to understand:
 
 ## Step 2: Find New Datasets
 
-Search for datasets relevant to the language/country. Good sources:
+**Goal: find data that people actually search for.** Think SEO — what would someone google in {{LANG}}? Lists, rankings, directories, reference tables that exist as PDFs/Wikipedia/spreadsheets but NOT as clean downloadable Excel/CSV. We turn them into structured lists people can download.
 
-1. **GitHub repos** — search for `"{country} data json"`, `"dataset {country}"`, clone with `git clone --depth 1`
-2. **Wikipedia** — "List of..." pages with structured tables
-3. **Government open data** — many countries have data.gov.{tld} portals
-4. **Known multi-country repos:**
-   - `lxndrblz/Airports` — airports worldwide (filter by country)
-   - `dr5hn/countries-states-cities-database` — cities, states
-   - `datasets/country-codes` — ISO codes
-   - `martj42/international_results` — football match results
-   - `mledoze/countries` — country metadata
+**What makes a good dataset (SEO-driven):**
+- 🔥 **Lists people search for** — "list of universities in Malaysia", "สถานีรถไฟฟ้า", "भारत के राज्य"
+- 🔥 **Reference tables** — postal codes, area codes, bank codes, currency rates
+- 🔥 **Rankings/directories** — top companies, hospitals, schools, tourist spots
+- 🔥 **Government/official data** — that exists in PDFs or websites but not as downloadable CSV/Excel
+- ❄️ Avoid obscure/niche data nobody would search for
 
-**Priority: QUANTITY over perfection.** Add as many datasets as possible per run. Don't spend tokens translating — find data that's already in the right language.
+**Good sources:**
+
+1. **Wikipedia in {{LANG}}** — parse "List of..." / "Senarai..." / "सूची..." tables → instant structured data
+2. **Government open data** — data.gov.{tld}, ministry websites, official statistics
+3. **GitHub repos** — search `"{country} data"`, `"dataset {country}"`, local developer repos
+4. **Known multi-country repos** (filter by country):
+   - `lxndrblz/Airports`, `dr5hn/countries-states-cities-database`
+   - `martj42/international_results`, `mledoze/countries`
+
+**Priority: QUANTITY. Move fast.** Don't spend tokens translating — find data already in the right language.
 
 **Rules:**
 - Dataset must be **specific to the country/language** (not generic world data)
-- Must have **open license** (MIT, CC0, CC-BY, Public Domain)
+- Must have **open license** (MIT, CC0, CC-BY, Public Domain, or government public data)
 - Must have **5+ records**
 - Must **not duplicate** an existing dataset (check the index!)
-- **Find sources already in the target language** — don't translate English data row by row. Search Wikipedia in that language, find GitHub repos by local developers, use government open data portals
-- **Data values stay as-is from source** — don't waste tokens translating row data. Names, places, terms keep their original language from the source
-- **Only translate meta.json title/description** — that's 2 fields, not hundreds of rows
-- Column keys are always English/ASCII (`name`, `region`, `population`)
-- **Move fast** — clone repo, extract data, create data.json + meta.json, run add-dataset.js, move to next. Don't over-polish one dataset
+- **Find sources already in the target language** — Wikipedia in {{LANG}}, local government portals, repos by local developers
+- **Data values stay as-is from source** — don't translate row data
+- **Only translate meta.json title/description** — 2 fields only
+- Column keys in English/ASCII (`name`, `region`, `population`)
+- **Move fast** — clone, extract, add, next. Don't over-polish
 
 ## Step 3: Prepare Each Dataset
 
